@@ -1,7 +1,32 @@
-<div class="header">
-    
-        <img class="header-image" src="./images/KSS-logo.png" alt="">
-        <a href="fgh">asdsd</a>
-    
-    
+<div class="header bg-light">
+        <img src="/images/homepage-logo/KSS-logo.png" alt="" class="header-image">
+
+
+        <div class="action">
+      <div class="profile" onclick="menuToggle();">
+        <img src="/images/KSS-logo.png" />
+      </div>
+      <div class="menu">
+        <h3>Someone </h3>
+        <ul>
+          <li>
+          <a href="#">My profile</a>
+          </li>
+          <li>
+            <a href="#">Edit profile</a>
+          </li>
+          <li>
+            <a href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+       
+
+        <script>
+      function menuToggle() {
+        const toggleMenu = document.querySelector(".menu");
+        toggleMenu.classList.toggle("active");
+      }
+    </script>
 </div>
