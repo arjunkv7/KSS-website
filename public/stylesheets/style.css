@@ -5,17 +5,31 @@
 
 .header{
 width: 100%;
-height: 60px;
-margin: 2px 1px;
+height: 80px;
+margin-top: 0%;
+margin: 0px 1px;
 padding-top: 3px;
 padding: 2px 2px;
+border-radius: 5px;
+padding-bottom: 5px;
 
+}
+.header .section{
+  text-align: left;
+}
+.header p{
+  font-size: 11px;
+  float: left;
+  padding-top: auto;
+  
+  
 }
 
 .header .header-image{
   width: 40%;
-  height: 80%;
-  padding:auto ;
+  max-width: 200px;
+  height: 60px;
+ padding: 3px 3px;
   float: left;
   
 }
@@ -28,6 +42,9 @@ padding: 2px 2px;
   right: 30px;
   padding: 1% 4%;
   margin-top: 4px;
+  position: absolute;
+  
+
 }
 
 .action .profile {
@@ -58,15 +75,22 @@ padding: 2px 2px;
   width: 200px;
   box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
-  transition: 0.5s;
+  transition: 0.4s;
   visibility: hidden;
   opacity: 0;
+  z-index: 5;
+  
+  
 }
 
 .action .menu.active {
   top: 60px;
   visibility: visible;
   opacity: 1;
+  
+  
+ 
+  
 }
 
 .action .menu::before {
@@ -78,6 +102,7 @@ padding: 2px 2px;
   height: 20px;
   background: #fff;
   transform: rotate(45deg);
+  
 }
 
 .action .menu h3 {
@@ -98,10 +123,12 @@ padding: 2px 2px;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
+  
 }
 
 .action .menu ul li a {
   display: inline-block;
+  position: relative;
   text-decoration: none;
   color: #555;
   font-weight: 500;
@@ -113,3 +140,52 @@ padding: 2px 2px;
   color: #ec3a75;
 }
 
+
+/** home page boxes*/
+
+
+.boxcontainer{
+ 
+  width: 100%;
+  height: 300px;
+  border-radius: 15px;
+}
+
+.boxcontainer .boxdiv{
+  float: left;
+  width: 25%;
+  height: 30%;
+  padding: 2% 2%;
+  margin: 4% 4%;
+  margin-top: 2%;
+  
+}
+.boxcontainer .boxdiv p{
+  font-size: small;
+}
+
+.boxcontainer .boxdiv .boxes img{
+width: 100%;
+height: 100%;
+padding: 0px;
+border-radius: 15px;
+
+}
+.boxcontainer .boxdiv .boxes{
+  width: 100%;
+  height: 100%;
+}
+
+.boxcontainer .boxdiv a{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  
+
+}
+.boxcontainer .boxdiv a :hover{
+  box-shadow: 5px 5px 20px 5px rgba(139, 170, 238, 0.829)
+}
