@@ -1,0 +1,14 @@
+
+
+
+/*home  page header */
+
+.header{
+width: 100%;
+height: 100px;
+}
+
+.header .header-image{
+  width: 50%;
+  height: 100%;
+}
