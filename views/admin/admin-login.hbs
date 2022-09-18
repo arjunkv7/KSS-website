@@ -1,0 +1,46 @@
+<section class=" topmargin" style="background-color: #eee;">
+    <div class="container col-md-4 text-center " style="border-radius:15px ;">
+        <div class="pt-1 ">
+            <h6>Admin Login</h6>
+        </div>
+
+        <div class="pt-1  pb-1">
+            <div class="form-group ">
+
+                {{#if err}}
+                <p class="error text-danger " style="font-size:12px ;">{{err}}</p>
+                {{/if}}
+
+
+                <form action="/admin/admin-login" method="POST">
+                    {{#if loginErr}}
+                    <p class="error text-danger " style="font-size:12px ;">{{loginErr}}</p>
+                    {{/if}}
+
+                    <div class="p-1">
+                        <input class="form-control " style="font-size:12px ;" type="number" required
+                            placeholder="Mobile Number" name="mobile">
+                    </div>
+
+                    <div class="p-1 ">
+                        <input class="form-control " style="font-size:12px ;" type="password" required
+                            placeholder="Password" name="password">
+                    </div>
+
+                    <div class="p-1">
+                        <input type="submit" value="Login" style="font-size:12px ;" class="btn btn-primary pt-2">
+                    </div>
+
+
+                </form>
+                <a class="p-2" href="" style="font-size:12px ;">Forgot password ?</a><br>
+                <a class="p-2" href="/admin/admin-signup" style="font-size:12px ;">Admin Sign Up</a><br>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+</section>

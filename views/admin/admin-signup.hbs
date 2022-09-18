@@ -1,0 +1,64 @@
+<section class="p-4 topmargin" style="background-color: #eee; font-size: 12px;">
+    <div class="container col-md-4 text-center bg-white " style="border-radius:25px ;">
+        <div class="pt-3 ">
+            <h6>Admin Sign Up</h6>
+        </div>
+
+        <div class="pt-3  pb-3">
+            <div class="form-group ">
+
+                <form action="/admin/admin-signUp" method="POST" >
+
+                    <div class="p-2" style="font-size:12px ;">
+                        <input style="font-size:12px ;" class="form-control " type="number" required
+                            placeholder="Mobile Number" name="username">
+                    </div>
+
+                    <div class="p-2 ">
+                        <input style="font-size:12px ;" class="form-control " type="password" id="password1" required
+                            placeholder="Password" name="password">
+                    </div>
+
+                    <div class="p-2 ">
+                        <input style="font-size:12px ;" class="form-control " id="password2" onkeyup="checkPassword()"
+                            type="password" required placeholder="Re Enter Password" name="Password">
+                            <span id="message" style="color: red;" onke></span>
+                    </div>
+
+                    <div class="p-2">
+                        <input style="font-size:12px ;" type="submit" value="Login" class="btn btn-primary pt-2">
+                    </div>
+
+
+                </form>
+
+
+
+            </div>
+        </div>
+
+        <script>
+            /*function matchPassword(){
+           let password= document.getElementById("password").value
+           let reenteredpassword = document.getElementById('repassword').value
+           console.log(password)
+            }*/
+
+            function checkPassword() {
+                let password1 = document.getElementById('password1').value
+                let password2 = document.getElementById('password2').value
+
+                if (password1 != password2)
+                document.getElementById('message').innerHTML = "Password not matching" ;
+
+                else{
+                 document.getElementById('message').innerHTML = "Password matching" ;
+                 document.getElementById('message').style.color = "#006400"
+                }
+                    
+            }
+
+        </script>
+
+    </div>
+</section>

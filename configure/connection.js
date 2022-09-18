@@ -1,24 +1,26 @@
-const mongoClient = require("mongodb").MongoClient
 
-const state = {
+
+
+
+const { name } = require('../app')
+
+const mongoClient=require('mongodb').MongoClient
+
+const state={
     db:null
 }
 
-module.exports = {
-    connect : function (done){
-        const url = "mongodb://localhost:27017";
-        const dbname = "kss" ;
+module.exports.connect = function(done){
+    const url="mongodb://localhost:27017"
+    const dbname='kcc'
 
-        mongoClient.connect(url,(err,data)=>{
-            if(err)return done(err)
-
-            else{
-                state.db = data.db(dbname)
-                done()
-            }
-        })
-    },
-    get : function(){
-        return state.db
-    }
+     mongoClient.connect(url,(err,data)=>{
+        if(err) return done(err)
+         state.db=data.db(dbname)
+        done()
+    })
+  }
+module.exports.get=function(){
+    return state.db
 }
+

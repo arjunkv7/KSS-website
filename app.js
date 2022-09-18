@@ -5,6 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('express-handlebars')
 var db = require('./configure/connection')
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+var adminHelper = require("./helpers/admin-helper")
+const collections = require("./configure/collections")
 
 var adminRouter = require('./routes/admin');
 var membersRouter = require('./routes/members');
@@ -22,13 +26,37 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-db.connect((err,done)=>{
-  if(err)console.log("Database connection failed" +err)
-  else console.log("Databse conneted succesfully")
-})
+// db.connect((err,done)=>{
+//   if(err){
+//     console.log("Database connection failed" ) 
+//    // console.log(err)
+// }
+//   else {console.log("Databse conneted succesfully" +done)
+//   console.log(done)}
+// })
+
+ db.connect((err)=>{
+  if (err)console.log("error"+err);
+  else {
+    console.log("database connected");
+    adminHelper.createAdminCollection()
+  }
+  })
+
+  app.use(session({
+    secret: 'secret key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000*60*60*24*90 },
+    store: MongoStore.create({mongoUrl: "mongodb://localhost:27017"})
+  }))
+  
+ 
 
 app.use('/', membersRouter);
 app.use('/admin', adminRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
