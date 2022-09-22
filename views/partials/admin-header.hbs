@@ -1,27 +1,25 @@
 <div class="header bg-light">
-  <a href="/" style="color:black ;">
-  <div class="section">
-    <img src="/images/homepage-logo/KSS-logo.png" alt="" class="header-image">
+  <a href="/admin" style="color:black ;">
+    <div class="section">
+      <img src="/images/homepage-logo/KSS-logo.png" alt="" class="header-image">
 
-    <p class="col"> Karappa Swayam Sahaya Sangam</p>
-  </div>
+      <p class="col"> Karappa Swayam Sahaya Sangam</p>
+    </div>
   </a>
   {{#if admin}}
   <div class="action ">
     <div class="profile" onclick="menuToggle();">
-      <img src="" />
+      <img src="" >
     </div>
     <div class="menu ">
-      <h3>Someone </h3>
+      <h3>{{admin}} </h3>
       <ul>
-        <li>
-          <a href="#">My profile</a>
-        </li>
+       
         <li>
           <a href="#">Edit profile</a>
         </li>
         <li>
-          <a href="#">Logout</a>
+          <a href="/admin/logout">Logout</a>
         </li>
       </ul>
     </div>
@@ -30,7 +28,8 @@
   </div>
 
   {{else}}
-  <a href="" class="btn action login-btn text-white  p-1 " onclick="" style="background-color: darkgrey; font-size: 12px;">Login</a>
+  <a href="" class="btn action login-btn text-white  p-1 " onclick=""
+    style="background-color: darkgrey; font-size: 12px;">Login</a>
 
   {{/if}}
 

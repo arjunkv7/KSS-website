@@ -7,11 +7,15 @@
         <div class="pt-3  pb-3">
             <div class="form-group ">
 
-                <form action="/admin/admin-signUp" method="POST" >
+                <form action="/admin/admin-signUp" method="POST">
 
                     <div class="p-2" style="font-size:12px ;">
+                        <input style="font-size:12px ;" class="form-control " type="text" required
+                            placeholder="Enter name" name="username">
+                    </div>
+                    <div class="p-2" style="font-size:12px ;">
                         <input style="font-size:12px ;" class="form-control " type="number" required
-                            placeholder="Mobile Number" name="username">
+                            placeholder="Mobile Number" name="mobileNumber">
                     </div>
 
                     <div class="p-2 ">
@@ -22,7 +26,7 @@
                     <div class="p-2 ">
                         <input style="font-size:12px ;" class="form-control " id="password2" onkeyup="checkPassword()"
                             type="password" required placeholder="Re Enter Password" name="Password">
-                            <span id="message" style="color: red;" onke></span>
+                        <span id="message" style="color: red;" onke></span>
                     </div>
 
                     <div class="p-2">
@@ -49,13 +53,13 @@
                 let password2 = document.getElementById('password2').value
 
                 if (password1 != password2)
-                document.getElementById('message').innerHTML = "Password not matching" ;
+                    document.getElementById('message').innerHTML = "Password not matching";
 
-                else{
-                 document.getElementById('message').innerHTML = "Password matching" ;
-                 document.getElementById('message').style.color = "#006400"
+                else {
+                    document.getElementById('message').innerHTML = "Password matching";
+                    document.getElementById('message').style.color = "#006400"
                 }
-                    
+
             }
 
         </script>

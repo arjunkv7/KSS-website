@@ -45,8 +45,9 @@ background-color: rgb(220, 231, 241);
 .action {
   float: right;
   top: 20px;
-  right: 30px;
-  padding: 1% 4%;
+  right: 10px;
+  margin-right:0px;
+  padding: 1% 0%;
   margin-top: 4px;
   position: absolute;
   
@@ -161,14 +162,14 @@ background-color: rgb(220, 231, 241);
 .boxcontainer .boxdiv{
   float: left;
   width: 25%;
-  height: 25%;
+  height: 23%;
   padding: 2% 2%;
   margin: 4% 4%;
   margin-top: 2%;
   
 }
 .boxcontainer .boxdiv p{
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .boxcontainer .boxdiv .boxes img{

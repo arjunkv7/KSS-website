@@ -1,0 +1,41 @@
+<section class="p-2 topmargin" style="background-color: #eee; font-size: 12px;">
+
+    {{#if message}}
+    <p class="text-primary">{{message}}</p>
+    {{/if}}
+    <div class="container col-md-4 text-center bg-white " style="border-radius:25px ;">
+        <div class="pt-3 ">
+            <h6>Add new member</h6>
+        </div>
+
+        <div class="pt-1  pb-1">
+            <div class="form-group ">
+
+                <form action="/admin/admin-add-new-member" method="POST">
+
+                    <div class="p-2" style="font-size:11px ;">
+                        <input style="font-size:12px ;" class="form-control " type="text" required
+                            placeholder="Enter Name" name="username">
+                    </div>
+
+                    <div class="p-2 ">
+                        <input style="font-size:11px ;" class="form-control " type="number" id="" required
+                            placeholder="Mobile Number" name="mobileNumber">
+                    </div>
+
+                    <div class="p-2">
+                        <input style="font-size:11px ;" type="submit" value="Add member" class="btn btn-primary pt-2">
+                    </div>
+
+
+                </form>
+
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+</section>

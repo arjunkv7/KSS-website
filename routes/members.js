@@ -6,7 +6,7 @@ var adminHelper = require('../helpers/admin-helper')
 router.get('/', function(req, res, next) {
 
 
-  res.render('members/home-page',{member:true});
+  res.render('members/member-home-page',);
 });
 
 router.get("/attendance-history",(req,res)=>{

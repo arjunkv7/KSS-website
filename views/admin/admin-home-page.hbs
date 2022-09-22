@@ -1,6 +1,9 @@
 <section class="boxcontainer ">
+  {{#if message}}
+  <p class="text-primary">{{message}}</p>
+  {{/if}}
   <div class="boxdiv col-4 ">
-    <a class=" boxes">
+    <a class=" boxes" href="">
       <img src="/images/homepage-logo/attendance image.png" alt="">
       
     </a>
@@ -8,14 +11,30 @@
   </div>
 
   <div class="boxdiv col-4">
-    <a class=" boxes">
-      <img src="/images/homepage-logo/calendar-icon.png" alt="">
+    <a class=" boxes" href="/admin/add-deposit">
+      <img src="/images/homepage-logo/add deposit.png" alt="">
 
     </a>
-    <p>calender</p>
+    <p>Add Deposits</p>
   </div>
 
-  <div class="boxdiv col-4">
+  <div class="boxdiv col-4 ">
+    <a class=" boxes" href="/admin/add-remove-member">
+      <img src="/images/homepage-logo/add remove member.jpg" alt="">
+
+    </a>
+    <p>Add/Remove member</p>
+  </div>
+
+  <div class="boxdiv col-4 mt-4">
+    <a class=" boxes" href="/admin/add-profit">
+      <img src="/images/homepage-logo/add profit.jpg" alt="">
+
+    </a>
+    <p>Add profit</p>
+  </div>
+
+  <div class="boxdiv col-4 mt-4">
     <a class=" boxes" href="/attendance-history" >
       <img src="/images/homepage-logo/attendance history.jpg" alt="">
 
@@ -23,7 +42,7 @@
     <p>Attendance History</p>
   </div>
   
-  <div class="boxdiv col-4 pt-4">
+  <div class="boxdiv col-4 mt-4">
     <a class=" boxes">
       <img src="/images/homepage-logo/deposit logo.jpg" alt="">
 
@@ -31,7 +50,7 @@
     <p>Deposits & fine</p>
   </div>
 
-  <div class="boxdiv col-4 pt-4">
+  <div class="boxdiv col-4 mt-4">
     <a class=" boxes">
       <img src="/images/homepage-logo/profit logo.png" alt="">
 
@@ -39,7 +58,7 @@
     <p>Profit</p>
   </div>
 
-  <div class="boxdiv col-4 pt-4">
+  <div class="boxdiv col-4 mt-4">
     <a class=" boxes" href="/admin/admin-login">
       <img src="/images/homepage-logo/admin logo.jpg" alt="">
 
