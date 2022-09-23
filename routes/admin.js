@@ -16,7 +16,7 @@ const verifiyLogin = ((req, res, next) => {
 router.get('/', function (req, res, next) {
 
 
-  res.render('./admin/admin-home-page',{admin:req.session.admin});
+  res.render('./admin/admin-home-page', { admin: req.session.admin });
 });
 
 router.get('/admin-signup', async (req, res) => {
@@ -40,7 +40,7 @@ router.post("/admin-signup", (req, res) => {
 
 router.get('/admin-login', (req, res) => {
   if (req.session.adminLogin == true) {
-    res.render('./admin/admin-home-page',{message: 'You are already loged in',admin:req.session.admin})
+    res.render('./admin/admin-home-page', { message: 'You are already loged in', admin: req.session.admin })
   } else {
     adminHelper.adminExist().then((data) => {
       console.log(data)
@@ -76,37 +76,51 @@ router.post("/admin-login", (req, res) => {
 })
 
 router.get('/add-deposit', verifiyLogin, (req, res) => {
-  res.render("./admin/add-deposit",{admin:req.session.admin})
+  res.render("./admin/add-deposit", { admin: req.session.admin })
 })
 
 router.get('/add-remove-member', verifiyLogin, (req, res) => {
-  res.render("./admin/add-remove-member",{admin:req.session.admin})
+  res.render("./admin/add-remove-member", { admin: req.session.admin })
 })
 
 router.get('/add-new-member', verifiyLogin, (req, res) => {
-  res.render("./admin/add-new-member",{admin:req.session.admin})
+  res.render("./admin/add-new-member", { admin: req.session.admin })
 })
 
 router.get('/remove-member', verifiyLogin, (req, res) => {
-  res.render('./admin/remove-member',{admin:req.session.admin})
+  adminHelper.getAllMembers().then((data) => {
+    let allMembers = data
+    console.log(allMembers)
+    res.render('./admin/remove-member', { admin: req.session.admin, allMembers })
+  })
 })
 
 router.post('/add-deposit', verifiyLogin, (req, res) => {
   let member = req.body.member;
   console.log(member)
 
-  res.render('./admin/do-deposit',{admin:req.session.admin})
+  res.render('./admin/do-deposit', { admin: req.session.admin })
 })
 
-router.post('/admin-add-new-member',(req,res)=>{
-  let memberName = req.body.username ;
-  let memberMobile = req.body.mobileNumber ;
-  adminHelper.addNewMember(memberName,memberMobile).then((data)=>{
-    res.render('./admin/admin-home-page',{message:"New member " + memberName +"was added to the database"})
-  }).catch((data)=>{
-    console.log
-    res.render("./admin/add-new-member",{admin:req.session.admin,message:"Member already exist"})
+router.post('/admin-add-new-member', (req, res) => {
+  let memberName = req.body.username;
+  let memberMobile = req.body.mobileNumber;
+  console.log(memberName, memberMobile);
+  adminHelper.addNewMember(memberName, memberMobile).then((data) => {
+    res.render('./admin/admin-home-page', { message: "New member " + memberName + " was added to the database" })
+  }).catch((data) => {
+    console.log(data)
+    res.render("./admin/add-new-member", { admin: req.session.admin, message: "Mobile number already exist" })
   })
+})
+
+router.post("/remove-member", (req, res) => {
+  let memberName = req.body.member;
+  console.log(memberName)
+  adminHelper.removeMember(memberName).then((data) => {
+    res.render('./admin/admin-home-page', { message: "Member removed successfully" })
+  }).catch()
+
 })
 
 module.exports = router;

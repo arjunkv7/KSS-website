@@ -1,12 +1,14 @@
-<form class="" action="/admin/remove-member" method="post" style="padding-left:25% ;" onsubmit="return confirm ('jksdh')"
+<form class="" action="/admin/remove-member" method="post" style="padding-left:25% ;" onsubmit="return confirm ('Are you sure ? This will delete all the data of this member from the Database,You wont be able to retreve it.')"
     id="member-remove-form">
     <label for="member " style="font-size:11px ;">Select member</label>
     <select name="member" id="member" style="font-size:12px ;">
-        {{!-- {{#each members}} --}}
-        <option value="volvo">Volvo</option>
-        <option value="volvo">V</option>
-        {{!-- {{/each}} --}}
+        {{#each allMembers}}
+        <option value={{this.[member name]}}>{{this.[member name]}}</option>
+        
+        {{/each}}
     </select>
+
+   
     <br><br>
     
     <input type="submit" class="ml-5" style="font-size: 11px;" value="Submit" onsubmit="confirm('are you sure')  " onclick="confirm("are you sure")">

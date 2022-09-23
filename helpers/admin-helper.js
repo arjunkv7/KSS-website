@@ -78,11 +78,11 @@ module.exports = {
     },
 
     addNewMember: (memberName, mobileNumber) => {
-        return new Promise((resolve, reject) => {
-            let member = db.get().collection(collections.MEMBER_COLLECTION).findOne({ "member name": memberName, "mobile number": mobileNumber })
+        return new Promise(async (resolve, reject) => {
+            let member = await db.get().collection(collections.MEMBER_COLLECTION).findOne({  "mobile number": mobileNumber })
             if (member) {
                 console.log(member)
-                console.log("member already exist")
+                console.log("mobile already exist")
                 reject(member)
             }
             else {
@@ -97,6 +97,35 @@ module.exports = {
             }
         })
 
+    },
+
+    removeMember:(memberName) =>{
+        return new Promise ((resolve,reject)=>{
+            db.get().collection(collections.MEMBER_COLLECTION).deleteOne({"member name":memberName},(err,data)=>{
+                if(err){
+                    console.log(err)
+                    
+                }
+                else{
+                    console.log(data)
+                    console.log("member removed successfully")
+                    resolve(data)
+                }
+            })
+        })
+    },
+
+    getAllMembers:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let Allmembers = await db.get().collection(collections.MEMBER_COLLECTION).find().toArray()
+            if(Allmembers){
+            resolve(Allmembers)
+            console.log(Allmembers)
+            }
+            else(
+                console.log("Some error occured")
+            )
+        })
     }
 
 }
