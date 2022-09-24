@@ -79,6 +79,7 @@ module.exports = {
 
     addNewMember: (memberName, mobileNumber) => {
         return new Promise(async (resolve, reject) => {
+            let newPassword =await bcrypt.hash(mobileNumber,10)
             let member = await db.get().collection(collections.MEMBER_COLLECTION).findOne({  "mobile number": mobileNumber })
             if (member) {
                 console.log(member)
@@ -86,7 +87,7 @@ module.exports = {
                 reject(member)
             }
             else {
-                db.get().collection(collections.MEMBER_COLLECTION).insertOne({ 'member name': memberName, "mobile number": mobileNumber }, (err, data) => {
+                db.get().collection(collections.MEMBER_COLLECTION).insertOne({ 'member name': memberName, "mobile number": mobileNumber,'password':newPassword }, (err, data) => {
                     if (err) console.log(err)
 
                     else {

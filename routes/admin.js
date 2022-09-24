@@ -65,6 +65,7 @@ router.post("/admin-login", (req, res) => {
   adminHelper.doadminLogin(req.body.mobile, req.body.password).then((data) => {
     console.log(data)
     req.session.adminLogin = true;
+    req.session.loginStatus = true ;
     req.session.admin = data.admin;
     console.log(req.session.admin)
     res.render('./admin/admin-home-page', { admin: req.session.admin })

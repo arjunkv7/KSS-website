@@ -12,14 +12,12 @@
       <img src="" >
     </div>
     <div class="menu ">
-      <h3>{{member}} </h3>
+      <h3>{{this.[member name]}} </h3>
       <ul>
         
+        
         <li>
-          <a href="#">Edit profile</a>
-        </li>
-        <li>
-          <a href="#">Logout</a>
+          <a href="/logout">Logout</a>
         </li>
       </ul>
     </div>
@@ -28,7 +26,7 @@
   </div>
 
   {{else}}
-  <a href="" class="btn action login-btn text-white  p-1 " onclick=""
+  <a href="/member-login" class="btn action login-btn text-white  p-1 " onclick=""
     style="background-color: darkgrey; font-size: 12px;">Login</a>
 
   {{/if}}
