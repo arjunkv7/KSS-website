@@ -1,17 +1,22 @@
-<p class="m-2" style="font-size: 13px;">Mark attendance</p>
+{{#if message}}
+<p class="text-danger">{{message}}</p>
+{{/if}}
+
+<h4 class="m-2" style="">Mark attendance</h4>
+
 
 <form action="/mark-attendence" method="post" class="m-2 ">
 
-<input type="number" class="m-1" step="any" id="latitude" name="latitude" value="" readonly required>
-<input type="number" class="m-1" id="longitude" step="any" name="longitude" value="" readonly required>
-<button style="font-size: 11px;" class="m-1" onclick="getLocation() ; showSubmitButton()"  >Get location</button>
-<input style="font-size: 11px;" type="submit" value="submit" id="submitButton">
+<input type="number" class="m-1" step="any" id="latitude" name="latitude" value=""  required>
+<input type="number" class="m-1" id="longitude" step="any" name="longitude" value=""  required>
+<button style="font-size: 11px;" type="button" class="m-1" onclick="getLocation() ; showSubmitButton()"  >Get location</button>
+<input style="font-size: 11px; " type="submit" value="submit" id="submitButton" hidden>
 
 <p id="demo" style="font-size: 13px;"></p>
 
 
 </form>
-<button style="font-size: 11px;" class="m-1" onclick="getLocation() ; showSubmitButton();"  >Get location</button>
+
 
 <script>
 var x = document.getElementById("demo");
@@ -48,7 +53,11 @@ function showError(error) {
   }
 }
 
-function  showSubmitButton(){
-  document.getElementById("submitButton").style.visibility ="visible";
+
+</script>
+<script>
+  var a =  document.getElementById("submitButton") ;
+  function  showSubmitButton(){
+  a.removeAttribute('hidden');
 }
 </script>

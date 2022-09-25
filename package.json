@@ -17,6 +17,7 @@
     "http-errors": "~1.6.3",
     "mongodb": "^4.9.1",
     "morgan": "~1.9.1",
+    "node-cron": "^3.0.0",
     "nodemon": "^2.0.20"
   },
   "main": "app.js",
