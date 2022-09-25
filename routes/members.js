@@ -4,10 +4,10 @@ var adminHelper = require('../helpers/admin-helper')
 var memberHelper = require('../helpers/member-helper')
 
 const verifiyLogin = (req, res, next) => {
-  if (req.session.loginStatus = true) next()
+  if (req.session.loginStatus == true) next()
 
   else {
-    res.render('./member/member-login')
+    res.render('./members/member-login')
   }
   
 }
@@ -56,6 +56,14 @@ router.post('/member-login', (req, res) => {
 router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/')
+})
+
+router.get('/mark-attendence',verifiyLogin,(req,res)=>{
+  res.render("./members/mark-attendance",{member:req.session.member})
+})
+
+router.post('/mark-attendence',(req,res)=>{
+  console.log(req.body)
 })
 
 module.exports = router;
