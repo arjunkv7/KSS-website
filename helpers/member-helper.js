@@ -6,6 +6,7 @@ const { ReturnDocument } = require("mongodb")
 const collections = require("../configure/collections")
 const db = require("../configure/connection")
 const commonHelper = require('../helpers/common-helpers')
+const date = require('date-and-time')
 
 module.exports = {
 
@@ -19,8 +20,6 @@ module.exports = {
                     if (err) {
                         console.log(err)
                         console.log("compare error")
-
-
                     }
                     else if (data) {
                         console.log(data + '   jhkh')
@@ -46,14 +45,47 @@ module.exports = {
             console.log(member)
             const hostLat = 11.867531;
             const hostLong = 75.506928;
-            let date = new Date()
+            let Date = date.format((new Date()), 'YYYY/MM/DD ');
 
             commonHelper.calculateDistance(hostLat, latitude, hostLong, longitude).then((result) => {
                 console.log(result)
                 if (result * 1000 <= 10) {
-                    db.get().collection(collections.ATTENDENCE_COLLECTION).updateOne({ "member name": member['member name'],
-                      "mobile number": member['mobile number'] })
-                } else {
+                    db.get().collection(collections.ATTENDENCE_COLLECTION).updateOne({
+                        "member name": member['member name'],
+                        "mobile number": member['mobile number'], "attendence.date": Date
+                    }, {
+                        $set: {
+                            "attendence.$.status": "present"
+                        }
+                    }, (err, result) => {
+                        if (err) throw err
+
+                        else {
+                            console.log("attendence updated as present")
+
+                            db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).updateOne({
+                                "member name": member['member name'],
+                                "mobile number": member['mobile number'], "weekly amount.date": Date
+                            },
+                                {
+                                    $set: {
+                                        "weekly amount.$.attendence": "present",
+                                        "weekly amount.$.fine": 0,
+
+                                    }
+                                }, (err, data) => {
+                                    if (err) throw err;
+
+                                    else {
+                                        console.log(data)
+                                        console.log('fine  updated based on attendence')
+                                    }
+                                })
+                        }
+                    })
+                }
+
+                else {
                     console.log("Cordinates not matching..")
                     reject()
                 }

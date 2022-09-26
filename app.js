@@ -56,7 +56,7 @@ app.use('/admin', adminRouter);
 
 cron.schedule('5 * * * * Mon', () => {
 commonHelper.updateWeeklyAmount().then((data)=>{
-  console.log("weekly amount updated")
+  // console.log("weekly amount updated")
 
 })
 }, {

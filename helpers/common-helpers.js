@@ -54,7 +54,26 @@ module.exports = {
 
                     else {
                         console.log(data)
-                        resolve(data)
+                        console.log('amount updated')
+                        let newdate = date.format((new Date()), 'YYYY/MM/DD ');
+                        db.get().collection(collections.ATTENDENCE_COLLECTION).updateMany({},
+                            {
+                                $push:{
+                                    "attendence":{
+                                        date: newdate,
+                                        status : "absent",
+                                    }
+                                }
+                            },(err,result)=>{
+                                if (err) throw err
+
+                                else {
+                                    console.log(result)
+                                    console.log('attendence updated')
+                                    resolve()
+                                }
+                            })
+                        
                     }
                 })
         })
