@@ -92,6 +92,17 @@ module.exports = {
 
                     else {
                         console.log(data)
+                        db.get().collection(collections.ATTENDENCE_COLLECTION).insertOne({ 'member name': memberName, "mobile number": mobileNumber,"attendence":[]},(err,result)=>{
+                            if (err)console.log(err)
+
+                            
+                           
+                        })
+                        db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).insertOne({ 'member name': memberName, "mobile number": mobileNumber,"weekly amount":[]},(err,result)=>{
+                            if (err)console.log(err)
+
+                        })
+                        
                         resolve(data)
                     }
                 })

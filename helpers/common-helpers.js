@@ -1,6 +1,11 @@
+const collections = require("../configure/collections")
+const db = require("../configure/connection")
+const date = require('date-and-time')
+const { response } = require("express")
+
 module.exports = {
 
-    calculateDistance: (lat1,lat2, lon1, lon2) => {
+    calculateDistance: (lat1, lat2, lon1, lon2) => {
         return new Promise((resolve, reject) => {
             // The math module contains a function
             // named toRadians which converts from
@@ -24,9 +29,36 @@ module.exports = {
             let r = 6371;
 
             // calculate the result
-            resolve (c * r);
+            resolve(c * r);
         })
-        
+
+    },
+
+    updateWeeklyAmount: () => {
+        let newdate = date.format((new Date()), 'YYYY/MM/DD ');
+        return new Promise((resolve, reject) => {
+            db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).updateMany({},
+                {
+                    $push: {
+
+                        "weekly amount": { $each:[
+                            {'date': newdate,
+                            'attendence': "absent",
+                            'weekly amount': 150,
+                            'fine': 30}
+                        ]
+                        }
+                    }
+                }, (err, data) => {
+                    if (err) throw err;
+
+                    else {
+                        console.log(data)
+                        resolve(data)
+                    }
+                })
+        })
     }
+
 
 }

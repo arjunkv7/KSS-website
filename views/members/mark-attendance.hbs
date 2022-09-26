@@ -1,6 +1,7 @@
 {{#if message}}
-<p class="text-danger">{{message}}</p>
+<p class="text-danger" id="">{{message}}</p>
 {{/if}}
+<p class="text-danger m-2" id="text-message" style="font-size:11px ;">{{message}}</p>
 
 <h4 class="m-2" style="">Mark attendance</h4>
 
@@ -9,7 +10,7 @@
 
 <input type="number" class="m-1" step="any" id="latitude" name="latitude" value=""  required>
 <input type="number" class="m-1" id="longitude" step="any" name="longitude" value=""  required>
-<button style="font-size: 11px;" type="button" class="m-1" onclick="getLocation() ; showSubmitButton()"  >Get location</button>
+<button style="font-size: 11px;" type="button" class="m-1" onclick="getLocation() ; checkDate ()";  >Get location</button>
 <input style="font-size: 11px; " type="submit" value="submit" id="submitButton" hidden>
 
 <p id="demo" style="font-size: 13px;"></p>
@@ -56,8 +57,18 @@ function showError(error) {
 
 </script>
 <script>
+  function checkDate(){
+  var date = new Date();
+  let day = date.getDay()
   var a =  document.getElementById("submitButton") ;
-  function  showSubmitButton(){
+
+  if (day === 0){
+  
   a.removeAttribute('hidden');
-}
+
+  }
+  else{
+    document.getElementById('text-message').innerHTML = "You can mark attendence only in every Tuesdays between 8PM-9PM "
+  }
+  }
 </script>

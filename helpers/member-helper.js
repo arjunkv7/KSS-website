@@ -43,14 +43,17 @@ module.exports = {
 
     markAttendence: (latitude, longitude, member) => {
         return new Promise((resolve, reject) => {
-            const hostLat = 11.867531 ;
-            const hostLong =  75.506928 ;
-           
-            commonHelper.calculateDistance(hostLat,latitude,hostLong,longitude).then((result)=>{
-                console.log(result)
-                if(result * 1000 <= 10){
+            console.log(member)
+            const hostLat = 11.867531;
+            const hostLong = 75.506928;
+            let date = new Date()
 
-                }else{
+            commonHelper.calculateDistance(hostLat, latitude, hostLong, longitude).then((result) => {
+                console.log(result)
+                if (result * 1000 <= 10) {
+                    db.get().collection(collections.ATTENDENCE_COLLECTION).updateOne({ "member name": member['member name'],
+                      "mobile number": member['mobile number'] })
+                } else {
                     console.log("Cordinates not matching..")
                     reject()
                 }
