@@ -47,7 +47,11 @@ router.get('/admin-login', (req, res) => {
   if (req.session.adminLogin == true) {
 
     res.render('./admin/admin-home-page', { message: 'You are already loged in', admin: req.session.admin })
-  } else {
+  }
+  else if(req.session.memberLogin == true){
+    res.render('members/member-home-page',{message:"Please logout first",member:req.session.member})
+  } 
+  else {
 
     adminHelper.adminExist().then((data) => {
       console.log(data)

@@ -41,31 +41,32 @@ module.exports = {
     },
 
     markAttendence: (latitude, longitude, member) => {
-        return new Promise((resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
             console.log(member)
+            console.log(member["member name"])
             const hostLat = 11.867531;
             const hostLong = 75.506928;
-            let Date = date.format((new Date()), 'YYYY/MM/DD ');
+            let newDate =await date.format((new Date()), 'YYYY/MM/DD ');
 
-            commonHelper.calculateDistance(hostLat, latitude, hostLong, longitude).then((result) => {
+            await commonHelper.calculateDistance(hostLat, latitude, hostLong, longitude).then((result) => {
                 console.log(result)
                 if (result * 1000 <= 10) {
-                    db.get().collection(collections.ATTENDENCE_COLLECTION).updateOne({
+                    db.get().collection(collections.ATTENDENCE_COLLECTION).updateMany({
                         "member name": member['member name'],
-                        "mobile number": member['mobile number'], "attendence.date": Date
+                        "mobile number": member['mobile number'], "attendence.date": newDate
                     }, {
                         $set: {
                             "attendence.$.status": "present"
                         }
-                    }, (err, result) => {
+                    },async (err, result) => {
                         if (err) throw err
 
                         else {
                             console.log("attendence updated as present")
 
-                            db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).updateOne({
+                           await db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).updateMany({
                                 "member name": member['member name'],
-                                "mobile number": member['mobile number'], "weekly amount.date": Date
+                                "mobile number": member['mobile number'], "weekly amount.date": newDate
                             },
                                 {
                                     $set: {

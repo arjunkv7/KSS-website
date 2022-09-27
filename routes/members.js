@@ -65,6 +65,7 @@ router.get('/mark-attendence',verifiyLogin,(req,res)=>{
 router.post('/mark-attendence',(req,res)=>{
 
   memberHelper.markAttendence(req.body.latitude,req.body.longitude,req.session.member).then((data)=>{
+    res.render('./members/member-home-page',{message:"Attendence marked successfully"})
 
   }).catch(()=>{
     res.render('./members/mark-attendance',{message:"Invalid Location"})
