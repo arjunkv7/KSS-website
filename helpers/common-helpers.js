@@ -2,6 +2,7 @@ const collections = require("../configure/collections")
 const db = require("../configure/connection")
 const date = require('date-and-time')
 const { response } = require("express")
+const async = require("hbs/lib/async")
 
 module.exports = {
 
@@ -34,8 +35,8 @@ module.exports = {
 
     },
 
-    updateWeeklyAmount: () => {
-        let newdate = date.format((new Date()), 'YYYY/MM/DD ');
+    updateWeeklyAmount: async() => {
+        let newdate = await date.format((new Date()), 'YYYY/MM/DD ');
         return new Promise((resolve, reject) => {
             db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).updateMany({},
                 {
@@ -44,8 +45,10 @@ module.exports = {
                         "weekly amount": { $each:[
                             {'date': newdate,
                             'attendence': "absent",
-                            'weekly amount': 150,
-                            'fine': 30}
+                            'weekly installment': 150,
+                            'fine': 30,
+                            'deposited amount':0,
+                        }
                         ]
                         }
                     }
@@ -55,7 +58,7 @@ module.exports = {
                     else {
                         console.log(data)
                         console.log('amount updated')
-                        let newdate = date.format((new Date()), 'YYYY/MM/DD ');
+                        let newdate = date.format((new Date()), 'YYYY/MM/DD ') ;
                         db.get().collection(collections.ATTENDENCE_COLLECTION).updateMany({},
                             {
                                 $push:{
@@ -74,6 +77,28 @@ module.exports = {
                                 }
                             })
                         
+                    }
+                })
+        })
+    },
+
+    updateWeeklyDepostis:()=>{
+        return new Promise( async (resolve,reject)=>{
+            let newdate = await date.format((new Date()), 'YYYY/MM/DD ');
+            db.get().collection(collections.DEPOSIT_COLLECTION).updateMany({},
+                {
+                    $push:{
+                        "weekly deposits":{
+                            date: newdate,
+                            "deposited amount": 0  ,
+                        }
+                    }
+                },(err,data)=>{
+                    if(err) throw err
+                    else{
+                        console.log(data)
+                        console.log("deposit updated")
+                        resolve()
                     }
                 })
         })

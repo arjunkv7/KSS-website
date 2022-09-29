@@ -1,11 +1,15 @@
+{{#if message}}
+<p class="text-success">{{message}}</p>
+{{/if}}
 <h5 class="" style="margin-left:25% ; ">Add Deposit</h5>
 <form class="" action="/admin/add-deposit" method="post" style="padding-left:15% ;">
-    <label for="cars " style="font-size:12px ;">Select member</label>
-    <select name="member" id="cars" style="font-size:12px ;">
-        {{!-- {{#each members}} --}}
-        <option value="volvo">Volvo</option>
-        <option value="v">V</option>
-        {{!-- {{/each}} --}}
+    <label for="members " style="font-size:12px ;">Select member</label>
+    <select name="member" id="" style="font-size:12px ;">
+        {{#each allMembers}}
+        <option value="{{this.[mobile number]}}" name="member-mobile" >{{this.[member name]}}</option>
+        
+        
+        {{/each}}
     </select>
     <br><br>
     <input type="submit" class="" value="Submit" style="font-size:12px ; margin-left: 20%; padding-top: 0%;">

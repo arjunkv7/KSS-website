@@ -97,7 +97,14 @@ router.post("/admin-login", (req, res) => {
 
 router.get('/add-deposit', verifiyLogin, (req, res) => {
 
-  res.render("./admin/add-deposit", { admin: req.session.admin })
+  adminHelper.getAllMembers().then((data) => {
+
+    let allMembers = data
+
+    console.log(allMembers)
+
+  res.render("./admin/add-deposit", { admin: req.session.admin,allMembers })
+  })
 })
 
 router.get('/add-remove-member', verifiyLogin, (req, res) => {
@@ -125,7 +132,7 @@ router.post('/add-deposit', verifiyLogin, (req, res) => {
   let member = req.body.member;
   console.log(member)
 
-  res.render('./admin/do-deposit', { admin: req.session.admin })
+  res.render('./admin/do-deposit', { admin: req.session.admin,member })
 })
 
 router.post('/admin-add-new-member', (req, res) => {
@@ -154,6 +161,17 @@ router.post("/remove-member", (req, res) => {
     res.render('./admin/admin-home-page', { message: "Member removed successfully" })
   }).catch()
 
+})
+
+router.post('/do-deposit',verifiyLogin,async(req,res)=>{
+let memberMobile = req.body["member-mobile"] ;
+await adminHelper.getAllMembers().then((allMembers)=>{
+
+console.log(allMembers)
+  adminHelper.saveDeposit(memberMobile,req.body.amount).then((result)=>{
+    res.render('./admin/add-deposit',{message: "Amount added ",allMembers, admin: req.session.admin})
+  })
+})
 })
 
 module.exports = router;

@@ -54,10 +54,14 @@ app.use('/admin', adminRouter);
 
 //automatically update weekly deposits
 
-cron.schedule('59 * * * * Tue', () => {
+cron.schedule('59 * * * * Mon', () => {
 commonHelper.updateWeeklyAmount().then((data)=>{
   // console.log("weekly amount updated")
 
+})
+
+commonHelper.updateWeeklyDepostis().then(()=>{
+  console.log('weekly deposit updated in deposit collection')
 })
 }, {
   timezone: 'Asia/Calcutta'
