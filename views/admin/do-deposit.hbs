@@ -1,45 +1,62 @@
 <form action="/admin/do-deposit" method="post">
-    {{!-- {{#if member}} --}}
+    {{#each allDepositDetails}}
     <input class="ml-1" type="number" id="deposit-amount" name="amount" style=" max-width:40%; font-size: 11px;"
         placeholder="Enter Amount" required>
-    <input type="number" value="{{member}}" name="member-mobile" hidden>
+    <input type="number" value="{{this.[mobile number]}}" name="member-mobile" hidden>
     <input type="submit" value="Add amount" style="font-size: 11px;" id="deposit-amount"  class="btn-success">
 
 </form>
 <div style="overflow-x:auto;">
+
+  
   
   <table>
-    <h6 class="pt-3">Name :{{member}}</h6>
+    <h6 class="pt-3" style="font-size:15px ; margin-left: 2%;">Name :   {{this.[member name]}}</h6>
+    <h6 class="text-success" style="font-size:12px ;margin-left: 2%;">Total Present Days <span style="padding-left: 15%;">:  {{this.[total present days]}} </span></h6>
+    <h6 class=" text-danger" style="font-size:12px ;margin-left: 2%;">Total Absent Days <span style="padding-left: 16%;">:  {{this.[total absent days]}} </span></h6>
+    <h6 class=" text-dan" style="font-size:12px ;margin-left: 2%;">Total Amount <br> Should Be Paid <span style="padding-left: 25%;">:   {{this.[total installment]}} </span></h6>
+    <h6 class=" text-dang" style="font-size:12px ;margin-left: 2%;">Total Deposited <br> Amount <span style="padding-left: 42%;">:   {{this.[total deposited amount]}} </span></h6>
+    <h6 class=" text-dang" style="font-size:12px ;margin-left: 2%;">Pending or Balence <br> (-ve pending) <span style="padding-left: 29%;">:      {{this.[pending or advance amount]}} </span></h6>
+    
     <tr>
       
       <th>Date</th>
       <th>Att.Staus</th>
       <th>Fine</th>
       <th>Installment</th>
-      <th>Total Amount</th>
-      <th>Overall <br> Deposited Amount</th>
-      <th>Pending</th>
-      
+      <th>Total<br>(fine + Installment)</th>
+      <th>Today's deposit</th>
+            
     </tr>
+     {{#each this.[weekly amount]}}
     <tr>
+     
+      <td>{{this.date}}</td>
+      <td  class=" attendence" id="attendence"> {{this.attendence}}</td>
+      <td id="fine">{{this.fine}}</td>
+      <td id="installment">{{this.[weekly installment]}}</td>
+      <td id="total-fine-and-installment">{{this.[total installment]}}</td>
+      <td>{{this.[deposited amount]}}</td>
       
-      <td>Smith</td>
-      <td>0</td>
-      <td>50</td>
-      <td>50</td>
-      <td>50</td>
-      <td>50</td>
-      <td>50</td>
+    
+     
     
       
 
       
     </tr>
+      {{/each}}
     
   </table>
+  {{/each}}
 </div>
 
+
+
 <script>
+  
+
+
     function showInput() {
         document.getElementById('deposit-amount').style.visibility = "visible"
     }
@@ -51,7 +68,7 @@ table {
   border-spacing: 0;
   width: 100%;
   border: 1px solid #ddd;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 th, td {

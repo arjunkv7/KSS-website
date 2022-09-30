@@ -57,7 +57,8 @@ module.exports = {
                     }, {
                         $set: {
                             "attendence.$.status": "present"
-                        }
+                        },
+                        
                     },async (err, result) => {
                         if (err) throw err
 
@@ -72,8 +73,9 @@ module.exports = {
                                     $set: {
                                         "weekly amount.$.attendence": "present",
                                         "weekly amount.$.fine": 0,
-
-                                    }
+                                        "weekly amount.$.total installment":150
+                                    },
+                                    
                                 }, (err, data) => {
                                     if (err) throw err;
 

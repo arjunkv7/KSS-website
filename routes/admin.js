@@ -131,8 +131,10 @@ router.get('/remove-member', verifiyLogin, (req, res) => {
 router.post('/add-deposit', verifiyLogin, (req, res) => {
   let member = req.body.member;
   console.log(member)
-
-  res.render('./admin/do-deposit', { admin: req.session.admin,member })
+  adminHelper.getAllMemberDetails(member).then((allDepositDetails)=>{
+    console.log(allDepositDetails)
+    res.render('./admin/do-deposit', { admin: req.session.admin ,allDepositDetails})
+  })
 })
 
 router.post('/admin-add-new-member', (req, res) => {
@@ -164,7 +166,8 @@ router.post("/remove-member", (req, res) => {
 })
 
 router.post('/do-deposit',verifiyLogin,async(req,res)=>{
-let memberMobile = req.body["member-mobile"] ;
+let memberMobile = req.body['member-mobile']
+console.log(memberMobile)
 await adminHelper.getAllMembers().then((allMembers)=>{
 
 console.log(allMembers)

@@ -48,6 +48,7 @@ module.exports = {
                             'weekly installment': 150,
                             'fine': 30,
                             'deposited amount':0,
+                            "total installment":180
                         }
                         ]
                         }

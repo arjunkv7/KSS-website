@@ -54,7 +54,7 @@ app.use('/admin', adminRouter);
 
 //automatically update weekly deposits
 
-cron.schedule('59 * * * * Mon', () => {
+cron.schedule('59 * * * * Fri', () => {
 commonHelper.updateWeeklyAmount().then((data)=>{
   // console.log("weekly amount updated")
 

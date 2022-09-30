@@ -28,7 +28,9 @@ router.get("/attendance-history", (req, res) => {
 router.get('/member-login', (req, res) => {
   if (req.session.memberLogin == true) {
     res.render('./members/member-home-page', { message: "You are already loged in" ,member:req.session.member})
-  } else {
+  } else if(req.session.adminLogin == true){
+    res.render('./members/member-home-page',{message:"Please Logout first"})
+  } else{
     res.render('./members/member-login')
   }
 })

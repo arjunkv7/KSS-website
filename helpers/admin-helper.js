@@ -152,7 +152,7 @@ module.exports = {
 
             //update deposited amount in weekly amount collection 
             await db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).updateOne({
-                                
+
                 "mobile number": memberMobile, "weekly amount.date": newDate
             },
                 {
@@ -172,11 +172,12 @@ module.exports = {
 
             // update deposit amount in deposit collection
             db.get().collection(collections.DEPOSIT_COLLECTION).updateOne({
-                
-                "mobile number": memberMobile, "weekly deposits.date": newDate},
+
+                "mobile number": memberMobile, "weekly deposits.date": newDate
+            },
                 {
                     $inc: {
-                        
+
                         "weekly deposits.$.deposited amount": amount,
                     }
                 }, (err, data) => {
@@ -192,7 +193,57 @@ module.exports = {
         })
     },
 
+    getAllMemberDetails: (memberMobile) => {
+        return new Promise(async (resolve, reject) => {
 
+           let allPaymentDetails = await db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).aggregate([{
+                $match: {
+                    'mobile number': memberMobile,
+                }
+            }, {
+                $project: {
+                    "member name": 1,
+                    "mobile number": 1,
+                    "weekly amount": {$reverseArray:"$weekly amount"},
+                    'total installment': {
+                        $add: [{ $sum: '$weekly amount.weekly installment' },
+                        { $sum: "$weekly amount.fine" }]
+                    },
+                    "total deposited amount": {
+                        $sum: '$weekly amount.deposited amount'
+                    },
+                    'total present days':{
+                        $size: {
+                            "$filter": {
+                              "input": "$weekly amount",
+                              "as": "part",
+                              "cond": { "$eq": ["$$part.attendence", "present"]}
+                            }
+                        }
+                    },
+                    'total absent days':{
+                        $size: {
+                            "$filter": {
+                              "input": "$weekly amount",
+                              "as": "part",
+                              "cond": { "$eq": ["$$part.attendence", "absent"]}
+                            }
+                        }
+                    },
+                    "pending or advance amount":{
+                        $subtract: [{$sum: '$weekly amount.deposited amount'},{  $add: [{ $sum: '$weekly amount.weekly installment' },
+                        { $sum: "$weekly amount.fine" }]}]
+                    }
+                   
+                },  
+                                         
+            },
+
+            ]).toArray()
+            console.log(allPaymentDetails)
+            resolve(allPaymentDetails)
+        })
+    }
 
 
 
