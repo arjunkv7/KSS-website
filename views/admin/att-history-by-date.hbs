@@ -1,0 +1,75 @@
+<form class="bg-" action="/show-history-by-date" method="post" style="padding-left:15% ; background-color: rgba(187, 198, 199, 0.877);">
+<h5 class="" style="margin-left:15% ;">Att. history By Date</h5>
+    <label for="dates " style="font-size:12px ;">Select Date</label>
+    <select name="date" id="" style="font-size:12px ;">
+        {{#each allDates.attendence}}
+        <option value="{{this.date}}" name="date">{{this.date}}</option>
+
+
+       {{/each}}
+    </select>
+    <br><br>
+    <input type="submit" class="mb-1" value="Submit" style="font-size:12px ; margin-left: 20%; padding-top: 0%;">
+</form><hr>
+
+{{#if attDetails}}
+
+<div style="overflow-x:auto;">
+
+   
+<h5>Date : {{attDetails.[weekly amount].date}}</h5>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Att.Staus</th>
+            <th>Fine</th>
+            <th>Installment</th>
+            <th>Total<br>(fine + Installment)</th>
+            <th>Today's deposit</th>
+
+        </tr>
+         {{#each attDetails}}
+        
+        <tr>
+
+            <td>{{this.[member name]}}</td>
+            
+            <td>{{this.[weekly amount].date}}</td>
+            <td class=" attendence" id="attendence"> {{this.[weekly amount].attendence}}</td>
+            <td id="fine">{{this.[weekly amount].fine}}</td>
+            <td id="installment">{{this.[weekly amount].[weekly installment]}}</td>
+            <td id="total-fine-and-installment">{{this.[weekly amount].[total installment]}}</td>
+            <td>{{this.[weekly amount].[deposited amount]}}</td>
+           
+
+        </tr>
+         {{/each}}
+       
+
+    </table>
+   
+</div>
+{{/if}}
+
+
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        margin-top: 2%;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+</style>

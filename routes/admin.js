@@ -215,4 +215,55 @@ router.post('/remove-admin',(req,res)=>{
     }
   })
 })
+
+//
+
+router.get("/attendance-history", (req, res) => {
+  res.render('./admin/history-by-date-or-name', { admin: req.session.admin})
+})
+
+router.get('/history-by-name',verifiyLogin, (req, res) => {
+  adminHelper.getAllMembers().then((data) => {
+    let allMembers = data
+    console.log(allMembers)
+    res.render('./admin/att-history-by-name', {  admin: req.session.admin, allMembers })
+  })
+})
+
+router.get('/history-by-date',verifiyLogin,(req,res)=>{
+  adminHelper.getAllDates().then((Dates)=>{
+    let allDates = Dates ;
+    console.log(allDates)
+    // console.log(req.session.member["mobile number"])
+    res.render("./admin/att-history-by-date",{ admin: req.session.admin,allDates})
+  })
+})
+
+router.post('/show-history-by-date',verifiyLogin,(req,res)=>{
+  let date = req.body.date;
+  let  admin = req.session.admin
+  adminHelper.getAllDates().then((Dates)=>{
+    let allDates = Dates
+  adminHelper.getAttDetailsByDate(date).then((data)=>{
+    let attDetails = data
+     res.render("./admin/att-history-by-date",{ allDates,attDetails,admin})
+    
+  })
+})
+})
+
+router.post('/show-history-by-name',  (req, res) => {
+  let member = req.body.member
+  console.log(member)
+
+  adminHelper.getAllMembers().then((data) => {
+    let allMembers = data
+    console.log(allMembers)
+    adminHelper.getAllMemberDetails(member).then((allDepositDetails) => {
+      console.log(allDepositDetails)
+      res.render('./admin/att-history-by-name', { admin: req.session.admin, allDepositDetails,allMembers })
+    })
+  })
+
+})
 module.exports = router;

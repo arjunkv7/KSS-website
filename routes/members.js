@@ -4,7 +4,7 @@ var adminHelper = require('../helpers/admin-helper')
 var memberHelper = require('../helpers/member-helper')
 
 const verifiyLogin = (req, res, next) => {
-  if (req.session.loginStatus == true) next()
+  if (req.session.memberLogin == true) next()
 
   else {
     res.render('./members/member-login')
@@ -25,7 +25,7 @@ router.get("/attendance-history", (req, res) => {
   res.render('./members/history-by-date-or-name', { member: req.session.member })
 })
 
-router.get('/history-by-name', verifiyLogin, (req, res) => {
+router.get('/history-by-name',verifiyLogin, (req, res) => {
   adminHelper.getAllMembers().then((data) => {
     let allMembers = data
     console.log(allMembers)
@@ -34,17 +34,17 @@ router.get('/history-by-name', verifiyLogin, (req, res) => {
 })
 
 router.get('/history-by-date',verifiyLogin,(req,res)=>{
-  adminHelper.getAllDates(req.session.member["mobile number"]).then((Dates)=>{
+  adminHelper.getAllDates().then((Dates)=>{
     let allDates = Dates ;
     console.log(allDates)
-    console.log(req.session.member["mobile number"])
+    // console.log(req.session.member["mobile number"])
     res.render("./members/att-history-by-date",{ member: req.session.member,allDates})
   })
 })
 
-router.post('/show-history-by-date',verifiyLogin,(req,res)=>{
+router.post('/show-history-by-date',(req,res)=>{
   let date = req.body.date;
-  adminHelper.getAllDates(req.session.member["mobile number"]).then((Dates)=>{
+  adminHelper.getAllDates().then((Dates)=>{
     let allDates = Dates
   adminHelper.getAttDetailsByDate(date).then((data)=>{
     let attDetails = data
@@ -54,7 +54,7 @@ router.post('/show-history-by-date',verifiyLogin,(req,res)=>{
 })
 })
 
-router.post('/show-history-by-name', verifiyLogin, (req, res) => {
+router.post('/show-history-by-name',  (req, res) => {
   let member = req.body.member
   console.log(member)
 

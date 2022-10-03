@@ -247,7 +247,7 @@ module.exports = {
 
     getAllDates:(member)=>{
         return new Promise(async(resolve,reject)=>{
-            let allDates = db.get().collection(collections.ATTENDENCE_COLLECTION).findOne({'mobile number':member})
+            let allDates = db.get().collection(collections.ATTENDENCE_COLLECTION).findOne()
             if(allDates){
                 resolve(allDates)
             }
