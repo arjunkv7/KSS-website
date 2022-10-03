@@ -243,6 +243,65 @@ module.exports = {
             console.log(allPaymentDetails)
             resolve(allPaymentDetails)
         })
+    },
+
+    getAllDates:(member)=>{
+        return new Promise(async(resolve,reject)=>{
+            let allDates = db.get().collection(collections.ATTENDENCE_COLLECTION).findOne({'mobile number':member})
+            if(allDates){
+                resolve(allDates)
+            }
+            else{
+                console.log("an error occured")
+            }
+        })
+        
+    },
+
+    getAttDetailsByDate:(date)=>{
+        return new Promise(async (resolve,reject)=>{
+            console.log(date)
+        let attDetails = await db.get().collection(collections.WEEKLY_AMOUNT_COLLECTION).aggregate([
+            {
+                $match:{
+                    'weekly amount.date':date,
+                }
+            },{
+                $unwind:"$weekly amount"
+            },
+            { $match:{
+                'weekly amount.date':date,
+            }
+        }
+                
+        ]).toArray()
+            console.log(attDetails)
+            resolve(attDetails)
+        })
+    },
+
+    getAllAdmin:()=>{
+        return new Promise (async(resolve,reject)=>{
+         let admin =await   db.get().collection(collections.ADMIN_COLLECTION).find().toArray()
+         resolve(admin)
+         console.log("got all admin")
+            })
+        
+    },
+    
+    removeAdmin:(admin)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collections.ADMIN_COLLECTION).deleteOne({'mobile number':admin},(err,data)=>{
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    console.log(data)
+                    resolve(data)
+                    console.log('admin removed successfully')
+                }
+            })
+        })
     }
 
 

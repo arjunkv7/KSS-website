@@ -1,0 +1,14 @@
+
+<form class="bg-" action="/admin/remove-admin" method="post" style="padding-left:15% ; background-color: rgba(187, 198, 199, 0.877);">
+<h5 class="" style="margin-left:15% ;">Remove Admin</h5>
+    <label for="admins " style="font-size:12px ;">Select Admin</label>
+    <select name="admin" id="" style="font-size:12px ;">
+        {{#each allAdmin}}
+        <option value="{{this.[mobile number]}}" name="admin-mobile">{{this.[user name]}}</option>
+
+
+        {{/each}}
+    </select>
+    <br><br>
+    <input type="submit" class="mb-1" value="Submit" style="font-size:12px ; margin-left: 20%; padding-top: 0%;">
+</form><hr>

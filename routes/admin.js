@@ -1,4 +1,5 @@
 var express = require('express');
+const session = require('express-session');
 const async = require('hbs/lib/async');
 var router = express.Router();
 var adminHelper = require('../helpers/admin-helper')
@@ -48,9 +49,9 @@ router.get('/admin-login', (req, res) => {
 
     res.render('./admin/admin-home-page', { message: 'You are already loged in', admin: req.session.admin })
   }
-  else if(req.session.memberLogin == true){
-    res.render('members/member-home-page',{message:"Please logout first",member:req.session.member})
-  } 
+   else if(req.session.memberLogin == true){
+     res.render('members/member-home-page',{message:"Please logout first",member:req.session.member})
+   } 
   else {
 
     adminHelper.adminExist().then((data) => {
@@ -177,4 +178,41 @@ console.log(allMembers)
 })
 })
 
+router.get('/mark-attendence',verifiyLogin,(req,res)=>{
+  res.render('./admin/mark-attendance',{admin:req.session.admin})
+})
+
+router.post('/mark-attendance', (req, res) => {
+
+  memberHelper.markAttendence(req.body.latitude, req.body.longitude, req.session.member).then((data) => {
+    res.render('./admin/admin-home-page', { message: "Attendance marked successfully",admin:req.session.admin })
+
+  }).catch(() => {
+    res.render('./admin/mark-attendance', { message: "Invalid Location",admin:req.session.admin })
+  })
+  console.log(req.body)
+})
+router.get('/remove-admin',verifiyLogin,(req,res)=>{
+  console.log("apji reachied")
+  adminHelper.getAllAdmin().then((data)=>{
+    let allAdmin = data;
+    console.log(allAdmin)
+    console.log('get all admin function')
+    res.render('./admin/remove-admin',{allAdmin,admin:req.session.admin})
+  })
+})
+
+
+router.post('/remove-admin',(req,res)=>{
+  console.log(req.body.admin)
+  adminHelper.removeAdmin(req.body.admin).then((data)=>{
+    if(req.body.admin === req.session.admin['mobile number']){
+      req.session.destroy()
+      res.redirect('/')
+    }
+    else{
+    res.redirect('/')
+    }
+  })
+})
 module.exports = router;

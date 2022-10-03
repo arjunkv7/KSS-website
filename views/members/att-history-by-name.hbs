@@ -1,0 +1,86 @@
+
+<form class="bg-" action="/show-history-by-name" method="post" style="padding-left:15% ; background-color: rgba(187, 198, 199, 0.877);">
+<h5 class="" style="margin-left:15% ;">Att. history By Name</h5>
+    <label for="members " style="font-size:12px ;">Select member</label>
+    <select name="member" id="" style="font-size:12px ;">
+        {{#each allMembers}}
+        <option value="{{this.[mobile number]}}" name="member-mobile">{{this.[member name]}}</option>
+
+
+        {{/each}}
+    </select>
+    <br><br>
+    <input type="submit" class="mb-1" value="Submit" style="font-size:12px ; margin-left: 20%; padding-top: 0%;">
+</form><hr>
+
+{{#if allDepositDetails}}
+<div style="overflow-x:auto;">
+
+    {{#each allDepositDetails}}
+
+    <table>
+        <h6 class="pt-3" style="font-size:15px ; margin-left: 2%;">Name : {{this.[member name]}}</h6>
+        <h6 class="text-success" style="font-size:12px ;margin-left: 2%;">Total Present Days <span
+                style="padding-left: 15%;">: {{this.[total present days]}} </span></h6>
+        <h6 class=" text-danger" style="font-size:12px ;margin-left: 2%;">Total Absent Days <span
+                style="padding-left: 16%;">: {{this.[total absent days]}} </span></h6>
+        <h6 class=" text-dan" style="font-size:12px ;margin-left: 2%;">Total Amount <br> Should Be Paid <span
+                style="padding-left: 25%;">: {{this.[total installment]}} </span></h6>
+        <h6 class=" text-dang" style="font-size:12px ;margin-left: 2%;">Total Deposited <br> Amount <span
+                style="padding-left: 42%;"> : {{this.[total deposited amount]}} </span></h6>
+        <h6 class=" text-dang" id="pending-amount" style="font-size:12px ;margin-left: 2%;">Pending or Balence <br> (-ve
+            pending) <span style="padding-left: 28%;">: {{this.[pending or advance amount]}} </span></h6>
+
+        <tr>
+
+            <th>Date</th>
+            <th>Att.Staus</th>
+            <th>Fine</th>
+            <th>Installment</th>
+            <th>Total<br>(fine + Installment)</th>
+            <th>Today's deposit</th>
+
+        </tr>
+        {{#each this.[weekly amount]}}
+        <tr>
+
+            <td>{{this.date}}</td>
+            <td class=" attendence" id="attendence"> {{this.attendence}}</td>
+            <td id="fine">{{this.fine}}</td>
+            <td id="installment">{{this.[weekly installment]}}</td>
+            <td id="total-fine-and-installment">{{this.[total installment]}}</td>
+            <td>{{this.[deposited amount]}}</td>
+
+
+
+
+
+
+
+        </tr>
+        {{/each}}
+
+    </table>
+    {{/each}}
+</div>
+{{/if}}
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        margin-top: 2%;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+</style>
